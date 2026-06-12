@@ -13,6 +13,7 @@ Use these recipes as starting points. Tune duration, FPS, and caption text to ma
 | Smug / teasing | `pulse` | `--duration 1.2 --fps 14` |
 | Idle sticker | `drift` | `--duration 1.8 --fps 14` |
 | Caption emphasis | `blink-text` | `--text "..." --duration 1.2 --fps 12` |
+| Unsure / auto-pick | `auto` | `--variants 3 --subject-mode auto` |
 
 ## Looping Rules
 
@@ -25,7 +26,25 @@ Use these recipes as starting points. Tune duration, FPS, and caption text to ma
 ## Common Commands
 
 ```bash
+python scripts/animate_meme.py input.png --style auto --subject-mode auto --output auto.gif
+python scripts/animate_meme.py input.png --style auto --variants 4 --preset chat
 python scripts/animate_meme.py input.png --style impact --preset chat --output impact.gif
 python scripts/animate_meme.py input.png --style bounce --format webp --output bounce.webp
 python scripts/animate_meme.py input.png --style blink-text --text "HELP" --output help.gif
 ```
+
+## Subject Mode
+
+- Use `--subject-mode auto` for transparent PNGs, sticker art, and white-background memes.
+- Use `--subject-mode cutout` when the character or object should move independently from the background.
+- Use `--subject-mode full` when the image is a screenshot, poster, or contains important text across the full frame.
+
+## Batch Candidate Recipes
+
+Generate candidate GIFs when the requested mood is underspecified:
+
+```bash
+python scripts/animate_meme.py input.png --style auto --variants 5 --preset chat
+```
+
+The first output uses the recommended style. Later outputs try high-value alternatives such as impact, bounce, shake, pulse, and drift.

@@ -1,6 +1,6 @@
 interface:
   display_name: "Animate Meme"
-  short_description: "Turn static meme images into looping GIF, WebP, or MP4 animations."
+  short_description: "Turn static memes into smart looping GIF, WebP, or MP4 animations."
   default_prompt: "Use $animate-meme to animate this static meme into a short looping reaction GIF."
 
 policy:
