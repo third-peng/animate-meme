@@ -1,56 +1,56 @@
-# AI Enhancement Workflow
+# AI 增强工作流
 
-Use this reference only when deterministic transforms are not enough and the user explicitly wants organic motion, expression changes, or image-to-video.
+只有当确定性几何变换不够用，并且用户明确想要更自然的动作、表情变化或图生视频时，才使用这份参考。
 
-## When To Use AI
+## 什么时候使用 AI
 
-- Blinking eyes, eye darts, mouth opening/closing, or breathing that cannot be made with simple transforms.
-- Changing emotion, such as neutral to angry, happy, smug, crying, or shocked.
-- Creating new in-between art for a character, not just moving the source image.
-- Image-to-video output where the user accepts less deterministic results.
+- 眨眼、眼神移动、张嘴闭嘴、呼吸等简单变换无法自然实现的动作。
+- 改变情绪，例如中性变生气、开心、得意、哭泣或震惊。
+- 为角色创建新的中间帧，而不只是移动原图。
+- 用户接受结果不完全确定，并明确要求图生视频。
 
-## Preferred Order
+## 推荐顺序
 
-1. Create a deterministic GIF/WebP first with `scripts/animate_meme.py`.
-2. If the user wants more life, generate or edit a small number of expression keyframes.
-3. Assemble those keyframes with deterministic timing, captions, and optimization.
-4. Keep the final loop short and inspect the output before returning it.
+1. 先用 `scripts/animate_meme.py` 创建一个确定性的 GIF/WebP。
+2. 如果用户想要更有生命感，再生成或编辑少量表情关键帧。
+3. 用确定性的节奏、字幕和优化步骤把关键帧组装起来。
+4. 保持最终循环很短，并在返回前检查输出效果。
 
-## Keyframe Strategy
+## 关键帧策略
 
-Use 3 to 6 keyframes for expression animation:
+表情动画通常使用 3 到 6 张关键帧：
 
-| Motion | Keyframes |
+| 动作 | 关键帧 |
 | --- | --- |
-| Blink | open, half-closed, closed, half-closed, open |
-| Mouth | closed, small open, wide open, small open, closed |
-| Angry pulse | normal, intense face, zoomed intense, normal |
-| Cute bounce | normal, eyes-smile, normal |
+| 眨眼 | 睁眼、半闭、闭眼、半闭、睁眼 |
+| 嘴巴 | 闭嘴、小张嘴、大张嘴、小张嘴、闭嘴 |
+| 生气脉冲 | 普通、表情加强、放大加强、普通 |
+| 可爱弹跳 | 普通、眯眼笑、普通 |
 
-After generating keyframes, pass them through a deterministic assembly step. Do not rely on a long AI video when a short keyframe loop will be cleaner.
+生成关键帧后，再进入确定性的组装步骤。能用短关键帧循环解决时，不要依赖长段 AI 视频。
 
-## Prompt Shape For Image Editing
+## 图片编辑提示词形态
 
-Use concise instructions that preserve identity and composition:
+使用简洁指令，重点保持身份和构图一致：
 
 ```text
-Create a transparent-background variant of this meme character with the same art style and pose, but with eyes closed for a blink frame. Preserve the outline, colors, proportions, and canvas alignment.
+基于这张表情包角色创建一个透明背景变体，保持相同画风和姿势，但把眼睛闭上作为眨眼帧。保留原有描边、颜色、比例和画布对齐。
 ```
 
 ```text
-Create a second keyframe of this meme character with a slightly open mouth, same style, same lighting, same canvas alignment, no new background.
+创建这个表情包角色的第二张关键帧，让嘴巴轻微张开。保持相同画风、相同光照、相同画布对齐，不要添加新背景。
 ```
 
-## Image-To-Video Guardrails
+## 图生视频约束
 
-- Use image-to-video only when the user asks for video-like motion.
-- Request a seamless loop, minimal camera movement, and no new text.
-- Keep duration around 1 to 2 seconds.
-- If the output changes the character identity, fall back to keyframes or deterministic transforms.
+- 只有当用户要求视频感动作时，才使用图生视频。
+- 要求无缝循环、最小镜头运动、不要生成新文字。
+- 时长控制在 1 到 2 秒左右。
+- 如果输出改变了角色身份，回退到关键帧方案或确定性变换。
 
-## Deliverables
+## 交付物
 
-When using AI enhancement, return both:
+使用 AI 增强时，通常同时返回：
 
-- The final GIF/WebP/MP4.
-- The deterministic fallback output, unless the user only wants one file.
+- 最终 GIF/WebP/MP4。
+- 确定性兜底版本，除非用户明确只要一个文件。

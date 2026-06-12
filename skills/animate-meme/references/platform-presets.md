@@ -1,24 +1,24 @@
-# Platform Presets
+# 平台预设
 
-Presets are conservative defaults. Check the target app if the user has strict delivery requirements.
+这些预设是偏保守的默认值。如果用户有严格的投放平台要求，要再确认目标应用的实际限制。
 
-| Preset | Max Edge | FPS | Notes |
+| 预设 | 最大边长 | FPS | 说明 |
 | --- | ---: | ---: | --- |
-| `chat` | 512 | 16 | Default for general chat apps. |
-| `small` | 320 | 12 | Use when file size matters most. |
-| `sticker` | 512 | 16 | Preserve transparency when possible. |
-| `web` | 720 | 20 | Larger preview for browser or social posts. |
+| `chat` | 512 | 16 | 通用聊天软件的默认选择。 |
+| `small` | 320 | 12 | 文件体积最重要时使用。 |
+| `sticker` | 512 | 16 | 尽量保留透明背景。 |
+| `web` | 720 | 20 | 适合浏览器或社交平台里的较大预览。 |
 
-## Format Guidance
+## 格式建议
 
-- GIF: broad compatibility, larger files, limited colors.
-- WebP: smaller and cleaner, but not universal in every app.
-- MP4: smooth and compact, but no transparency and not always treated as a sticker.
+- GIF：兼容性最广，但文件更大，颜色数量有限。
+- WebP：更小、更清晰，但不是所有应用都完全支持。
+- MP4：流畅且体积小，但没有透明通道，也不一定会被当成贴纸处理。
 
-## Size Reduction Order
+## 体积压缩顺序
 
-1. Lower `--max-size`.
-2. Lower `--fps`.
-3. Lower `--duration`.
-4. Use WebP instead of GIF.
-5. Run `optimize_output.py --colors 96` for GIFs.
+1. 降低 `--max-size`。
+2. 降低 `--fps`。
+3. 缩短 `--duration`。
+4. 用 WebP 替代 GIF。
+5. 对 GIF 运行 `optimize_output.py --colors 96`。
